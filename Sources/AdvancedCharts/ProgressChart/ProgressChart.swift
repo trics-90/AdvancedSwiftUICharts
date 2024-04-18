@@ -8,9 +8,9 @@
 import SwiftUI
 
 public struct ProgressChart: View {
-    var radius: CGFloat = 25
-    var title: String = "Discofox Analytics"
-    var subtitle: String? = "My personal Analytics"
+    public var radius: CGFloat = 25
+    public var title: String = "Discofox Analytics"
+    public var subtitle: String? = "My personal Analytics"
     public var body: some View {
         VStack {
             HStack {

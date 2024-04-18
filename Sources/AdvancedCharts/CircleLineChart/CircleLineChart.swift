@@ -8,10 +8,10 @@
 import SwiftUI
 
 public struct CircleLineChart: View {
-    let currentValue: Double
-    let maxValue: Double
-    let centerText: String
-    var progress: Int {
+    public let currentValue: Double
+    public let maxValue: Double
+    public let centerText: String
+    public var progress: Int {
         return Int(currentValue * 100 / maxValue)
     }
     let settings: CircleLineChartSettings

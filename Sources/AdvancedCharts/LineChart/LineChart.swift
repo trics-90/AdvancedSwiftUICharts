@@ -9,17 +9,17 @@ import SwiftUI
 
 public struct LineChart: View {
     // Values
-    let data: [Double]
+    public let data: [Double]
     
     // Dimensions
-    var radius: CGFloat = 25
-    let frame: CGSize = .zero
+    public var radius: CGFloat = 25
+    public let frame: CGSize = .zero
     
     @State private var touchLocation: CGPoint = .zero
     @State private var showIndicatorDot: Bool = false
     @State private var showIndicators: Bool = false
     // Settings
-    var settings: LineChartSettings = LineChartSettings()
+    public var settings: LineChartSettings = LineChartSettings()
     @State var currentValue: Double = 2 {
         didSet{
             if (oldValue != self.currentValue && showIndicatorDot) {
