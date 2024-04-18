@@ -31,4 +31,6 @@ public struct LineChartSettings {
     var numberOfHorizontalGridLines: Int = 4
     var isMaxValueOnTop: Bool = false
     var linePoints: [Double]? = nil
+    
+    public init() {}
 }
