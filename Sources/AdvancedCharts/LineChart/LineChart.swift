@@ -19,7 +19,7 @@ public struct LineChart: View {
     @State private var showIndicatorDot: Bool = false
     @State private var showIndicators: Bool = false
     // Settings
-    public var settings: LineChartSettings = LineChartSettings()
+    public var settings: LineChartSettings = LineChartSettings(title: "Discofox Analytics", gradientColor: LinearGradient(colors: [Color(hexString: "0097F7"), Color(hexString: "D200D4")], startPoint: .bottom, endPoint: .top))
     @State var currentValue: Double = 2 {
         didSet{
             if (oldValue != self.currentValue && showIndicatorDot) {
@@ -71,6 +71,6 @@ public struct LineChart: View {
 
 struct LineChart_Previews: PreviewProvider {
     static var previews: some View {
-        LineChart(data: [5, 10, 8, 9, 3, 15, 14, 18, 14, 12, 7, 2, 1], settings: LineChartSettings())
+        LineChart(data: [5, 10, 8, 9, 3, 15, 14, 18, 14, 12, 7, 2, 1], settings: LineChartSettings(title: "Discofox Analytics", gradientColor: LinearGradient(colors: [Color(hexString: "0097F7"), Color(hexString: "D200D4")], startPoint: .bottom, endPoint: .top)))
     }
 }
