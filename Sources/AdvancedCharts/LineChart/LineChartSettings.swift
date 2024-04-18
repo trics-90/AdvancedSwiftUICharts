@@ -17,7 +17,7 @@ public struct LineChartSettings {
     public let lineBackgroundBlurRadius: CGFloat
     public let backgroundBlurLineWidth: CGFloat
     public let showLineShadow: Bool
-    public let gradientColor: LinearGradient = LinearGradient(colors: [Color(hexString: "0097F7"), Color(hexString: "D200D4")], startPoint: .bottom, endPoint: .top)
+    public let gradientColor: LinearGradient// = LinearGradient(colors: [Color(hexString: "0097F7"), Color(hexString: "D200D4")], startPoint: .bottom, endPoint: .top)
     public let curvedLines: Bool
     public let showLineBackground: Bool
     public let backgroundColor: Color
@@ -62,7 +62,7 @@ public struct LineChartSettings {
         self.lineBackgroundBlurRadius = lineBackgroundBlurRadius
         self.backgroundBlurLineWidth = backgroundBlurLineWidth
         self.showLineShadow = showLineShadow
-//        self.gradientColor = gradientColor
+        self.gradientColor = gradientColor
         self.curvedLines = curvedLines
         self.showLineBackground = showLineBackground
         self.backgroundColor = backgroundColor
