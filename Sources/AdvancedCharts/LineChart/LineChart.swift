@@ -29,9 +29,9 @@ public struct LineChart: View {
         }
     }
     
-    public init(data: [Double], chartRadius: CGFloat) {
+    public init(data: [Double], settings: LineChartSettings) {
         self.data = data
-        self.radius = chartRadius
+        self.settings = settings
     }
     
     public var body: some View {
@@ -71,6 +71,6 @@ public struct LineChart: View {
 
 struct LineChart_Previews: PreviewProvider {
     static var previews: some View {
-        LineChart(data: [5, 10, 8, 9, 3, 15, 14, 18, 14, 12, 7, 2, 1], chartRadius: 25)
+        LineChart(data: [5, 10, 8, 9, 3, 15, 14, 18, 14, 12, 7, 2, 1], settings: LineChartSettings())
     }
 }
