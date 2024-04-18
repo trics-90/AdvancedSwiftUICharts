@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct LineChartSettings {
+public struct LineChartSettings {
     var title: String = "Discofox Analytics"
     var subTitle: String?
     var lineWidth: CGFloat = 2
@@ -18,7 +18,7 @@ struct LineChartSettings {
     var backgroundBlurLineWidth: CGFloat = 4
     var showLineShadow: Bool = true
     var gradientColor: LinearGradient = LinearGradient(colors: [Color(hexString: "0097F7"), Color(hexString: "D200D4")], startPoint: .bottom, endPoint: .top)
-    var curvedLines: Bool = false
+    var curvedLines: Bool = true
     var showLineBackground: Bool = true
     var backgroundColor: Color = .black
     var chartCornerRadius: CGFloat = 25

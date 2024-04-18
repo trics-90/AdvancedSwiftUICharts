@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct ProgressChart: View {
+public struct ProgressChart: View {
     var radius: CGFloat = 25
     var title: String = "Discofox Analytics"
     var subtitle: String? = "My personal Analytics"
-    var body: some View {
+    public var body: some View {
         VStack {
             HStack {
                 VStack(alignment: .leading) {

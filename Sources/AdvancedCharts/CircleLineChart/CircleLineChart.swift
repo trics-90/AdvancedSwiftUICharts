@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CircleLineChart: View {
+public struct CircleLineChart: View {
     let currentValue: Double
     let maxValue: Double
     let centerText: String
@@ -15,7 +15,7 @@ struct CircleLineChart: View {
         return Int(currentValue * 100 / maxValue)
     }
     let settings: CircleLineChartSettings
-    var body: some View {
+    public var body: some View {
         VStack {
             HStack {
                 VStack(alignment: .leading) {

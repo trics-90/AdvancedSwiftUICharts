@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BarChartView: View {
+public struct BarChartView: View {
     // Text options
     var title: String = "Discofox Analytics"
     var subtitle: String? = "My personal Analytics"
@@ -15,7 +15,7 @@ struct BarChartView: View {
     // Chart Style
     var radius: CGFloat = 25
         
-    var body: some View {
+    public var body: some View {
         let data: [Double] = [2.0, 4.0, 8.0, 3.0, 1.5, 3.4, 8.0, 3.0, 1.5, 3.4, 1.5, 3.4]
         VStack {
             HStack {

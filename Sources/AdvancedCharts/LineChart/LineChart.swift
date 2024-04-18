@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LineChart: View {
+public struct LineChart: View {
     // Values
     let data: [Double]
     
@@ -28,7 +28,7 @@ struct LineChart: View {
             
         }
     }
-    var body: some View {
+    public var body: some View {
         VStack {
             if !showIndicatorDot {
                 HStack {
