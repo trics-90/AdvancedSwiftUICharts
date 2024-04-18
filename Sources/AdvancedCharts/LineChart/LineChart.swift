@@ -28,6 +28,12 @@ public struct LineChart: View {
             
         }
     }
+    
+    public init(data: [Double], chartRadius: CGFloat) {
+        self.data = data
+        self.radius = chartRadius
+    }
+    
     public var body: some View {
         VStack {
             if !showIndicatorDot {
