@@ -23,6 +23,6 @@ struct IndicatorPoint: View {
 
 struct IndicatorPoint_Previews: PreviewProvider {
     static var previews: some View {
-        IndicatorPoint(settings: LineChartSettings())
+        IndicatorPoint(settings: LineChartSettings(title: "Discofox Analytics", gradientColor: LinearGradient(colors: [Color(hexString: "0097F7"), Color(hexString: "D200D4")], startPoint: .bottom, endPoint: .top)))
     }
 }

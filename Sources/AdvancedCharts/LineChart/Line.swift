@@ -133,7 +133,7 @@ struct Line: View {
 
 struct Line_Previews: PreviewProvider {
     static var previews: some View {
-        Line(data: [5, 10, 8, 9, 3, 15, 14, 18, 14, 12, 7, 2, 1], size: CGSize(width: 400, height: 200), touchLocation: .constant(.zero), showIndicatorDot: .constant(true), currentValue: .constant(2), showIndicators: .constant(true), settings: LineChartSettings())
+        Line(data: [5, 10, 8, 9, 3, 15, 14, 18, 14, 12, 7, 2, 1], size: CGSize(width: 400, height: 200), touchLocation: .constant(.zero), showIndicatorDot: .constant(true), currentValue: .constant(2), showIndicators: .constant(true), settings: LineChartSettings(title: "Discofox Analytics", gradientColor: LinearGradient(colors: [Color(hexString: "0097F7"), Color(hexString: "D200D4")], startPoint: .bottom, endPoint: .top)))
     }
 }
         

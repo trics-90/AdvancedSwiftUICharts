@@ -59,6 +59,6 @@ struct ChartGrid: View {
 
 struct ChartGrid_Previews: PreviewProvider {
     static var previews: some View {
-        ChartGrid(data: [5, 10, 8, 9, 3, 15, 14, 18, 14, 12, 7, 2, 1], size: CGSize(width: 400, height: 200), step: CGPoint(x: 1, y: 5), settings: LineChartSettings())
+        ChartGrid(data: [5, 10, 8, 9, 3, 15, 14, 18, 14, 12, 7, 2, 1], size: CGSize(width: 400, height: 200), step: CGPoint(x: 1, y: 5), settings: LineChartSettings(title: "Discofox Analytics", gradientColor: LinearGradient(colors: [Color(hexString: "0097F7"), Color(hexString: "D200D4")], startPoint: .bottom, endPoint: .top)))
     }
 }
