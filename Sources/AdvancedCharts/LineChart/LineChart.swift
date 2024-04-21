@@ -62,15 +62,34 @@ public struct LineChart: View {
         .padding()
         .background(settings.backgroundColor)
         .cornerRadius(settings.chartCornerRadius)
-        .frame(height: 200)
-        .shadow(radius: 10)
-        .padding()
-        
     }
 }
 
 struct LineChart_Previews: PreviewProvider {
+//    let data: [Double] = [5, 10, 8, 9, 3, 15, 14, 18, 14, 12, 7, 2, 1]
+//    let data: [Double] = [
+//        LineData(value: 5, description: "Jan'24"),
+//        LineData(value: 10, description: "Feb'24"),
+//        LineData(value: 8, description: "Mar'24"),
+//        LineData(value: 9, description: "Apr'24"),
+//        LineData(value: 3, description: "May'24"),
+//        LineData(value: 15, description: "Jun'24"),
+//        LineData(value: 14, description: "Jul'24"),
+//        LineData(value: 18, description: "Aug'24"),
+//        LineData(value: 14, description: "Sep'24"),
+//        LineData(value: 12, description: "Oct'24"),
+//        LineData(value: 7, description: "Nov'24"),
+//        LineData(value: 2, description: "Dec'24"),
+//        LineData(value: 1, description: "Jan'25"),
+//    ]
     static var previews: some View {
         LineChart(data: [5, 10, 8, 9, 3, 15, 14, 18, 14, 12, 7, 2, 1], settings: LineChartSettings(title: "Discofox Analytics", gradientColor: LinearGradient(colors: [Color(hexString: "0097F7"), Color(hexString: "D200D4")], startPoint: .bottom, endPoint: .top)))
+            .padding(.horizontal)
+            .frame(height: 200)
     }
+}
+
+public struct LineData: Hashable {
+    let value: Double
+    let description: String
 }

@@ -9,8 +9,8 @@ import SwiftUI
 
 public struct ProgressChartRow: View {
     // Calues
-    var progress: Double = 0.5
-    var targets: [Double] = [0.15, 0.30, 0.5, 0.6, 0.75, 1.0]
+    let data: Double
+    let targets: [Double]!
     @State var scaleValue: CGFloat = 0
     
     // Dimensions
@@ -21,23 +21,28 @@ public struct ProgressChartRow: View {
     var achivedTargetColor: Color = .white
     var previousTargetColor: Color = .white
     var markColor: Color = .clear
-    var showTargets: Bool = false
+    var showTargets: Bool = true
     
     
     public var body: some View {
         GeometryReader { proxy in
             let width = proxy.size.width
-            let progressBarWidth = width * progress
+            let progressBarWidth = width * data
             
             
-            VStack {
-                Text("\(Int(progress * 100))%")
-                    .font(.caption)
-                    .fontWeight(.bold)
-                    .padding(2)
-                    .background(markColor)
-                    .cornerRadius(5)
-                    .position(x: width * progress)
+            VStack(spacing: 0) {
+                if targets != nil {
+                    HStack(alignment: .bottom) {
+                        ForEach(Array(targets.enumerated()), id: \.offset) { index, target in
+                            Text("\(Int(target * 100))%")
+                                .font(index == (targets.count - 1) || index == 0 ? .callout.bold() : .caption2)
+                                .multilineTextAlignment(.center)
+                            if index != (targets.count - 1) {
+                                Spacer()
+                            }
+                        }
+                    }
+                }
                 ZStack(alignment: .leading) {
                     RoundedRectangle(cornerRadius: 6)
                         .fill(.gray)
@@ -50,19 +55,16 @@ public struct ProgressChartRow: View {
                     RoundedRectangle(cornerRadius: 6)
                         .fill(LinearGradient(colors: [.orange, .yellow], startPoint: .leading, endPoint: .trailing))
                         .frame(width: scaleValue, height: barHeight)
-//                        .blur(radius: 10)
-                    if showTargets {
-                        HStack(spacing: 0) {
-                            ForEach(Array(targets.enumerated()), id: \.offset) { index, target in
-                                RoundedRectangle(cornerRadius: 6)
-                                    .fill(progress > target ? achivedTargetColor : previousTargetColor)
-                                    .position(x: getTargetPosition(barWidth: width, for: target, i: index), y: barHeight / 2)
-                                    .frame(width: targetWidth, height: barHeight)
-                            }
-                        }
-                    }
                 }
                 .cornerRadius(6)
+                Text("\(Int(data * 100))%")
+                    .font(.caption)
+                    .fontWeight(.bold)
+                    .padding(2)
+                    .background(markColor)
+                    .cornerRadius(5)
+                    .position(x: width * data)
+                    .padding(.top, 10)
             }
             .onAppear {
                 withAnimation(.easeOut(duration: 0.5)) {
@@ -71,7 +73,7 @@ public struct ProgressChartRow: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .frame(height: 25)
+        .frame(height: 50)
     }
     
     private func getTargetPosition(barWidth: CGFloat, for target: Double, i: Int) -> CGFloat {
@@ -85,6 +87,6 @@ public struct ProgressChartRow: View {
 
 struct ProgressChartRow_Previews: PreviewProvider {
     static var previews: some View {
-        ProgressChartRow()
+        ProgressChartRow(data: 0.43, targets: [0.0, 0.25, 0.5, 0.75, 1.0])
     }
 }

@@ -13,7 +13,7 @@ struct Line: View {
     let size: CGSize
     var maxPoint: Double {
         guard let maxPoint = self.data.max() else {
-            return 0.0
+            return 0
         }
         return maxPoint
     }
@@ -138,7 +138,7 @@ struct Line_Previews: PreviewProvider {
 }
         
 extension Path {
-    static func quadCurvedPathWithPoints(data: [Double], step: CGPoint, size: CGSize, minPoint: CGFloat, showBackground: Bool = false, isMaxOnTop: Bool) -> Path {
+    static func quadCurvedPathWithPoints(data: [Double], step: CGPoint, size: CGSize, minPoint: Double, showBackground: Bool = false, isMaxOnTop: Bool) -> Path {
         var path = Path()
         if data.count < 2 {
             return path
@@ -171,7 +171,7 @@ extension Path {
         return path
     }
     
-    static func linePathWithPoints(data: [Double], step: CGPoint, size: CGSize, minPoint: CGFloat, maxPoint: CGFloat, showBackground: Bool = false, isMaxOnTop: Bool) -> Path {
+    static func linePathWithPoints(data: [Double], step: CGPoint, size: CGSize, minPoint: Double, maxPoint: Double, showBackground: Bool = false, isMaxOnTop: Bool) -> Path {
         var path = Path()
         if data.count < 2 {
             return path

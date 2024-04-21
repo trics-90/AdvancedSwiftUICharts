@@ -8,15 +8,16 @@
 import SwiftUI
 
 public struct BarChartRow: View {
-    var data: [Double]
+//    var data: [Double]
+    let data: [BarData]
     let settings: BarChartSettings
     let width: CGFloat
     
     var maxValue: Double {
-        guard let max = data.max() else {
+        guard let max = data.max(by: {$0.value > $1.value}) else {
             return 1
         }
-        return max != 0 ? max : 1
+        return max.value != 0 ? max.value : 1
     }
     
     var step: CGFloat {
@@ -34,7 +35,7 @@ public struct BarChartRow: View {
     
     @State var touchLocation: CGFloat = .zero
     @Binding var showIndicator: Bool
-    @Binding var currentValue: Double
+    @Binding var currentValue: BarData
     @State var currentIndex: Int? = nil
     public var body: some View {
         GeometryReader { proxy in
@@ -46,7 +47,7 @@ public struct BarChartRow: View {
             
             HStack(alignment: .bottom, spacing: spacing) {
                 ForEach(Array(data.enumerated()), id: \.offset) { index, element in
-                    Bar(width: barWidth, height: (height * getHeightMultiplier(for: element)) - 0, value: element, color: getColorAccent(value: element), blur: 5, cornerRadius: cornerRadius, isSelected: self.currentIndex == index ? true : false)
+                    Bar(width: barWidth, height: (height * getHeightMultiplier(for: element.value)) - 0, value: element, color: getColorAccent(value: element.value), blur: 5, cornerRadius: cornerRadius, isSelected: self.currentIndex == index ? true : false)
                 }
             }
         }
@@ -61,36 +62,6 @@ public struct BarChartRow: View {
                 self.currentIndex = nil
             })
         )
-        
-        
-        /*
-        .gesture(DragGesture()
-            .onChanged({ value in
-                self.touchLocation = value.location.x/self.formSize.width
-                self.showValue = true
-                self.currentValue = self.getCurrentValue()?.1 ?? 0
-                if(self.data.valuesGiven && self.formSize == ChartForm.medium) {
-                    self.showLabelValue = true
-                }
-            })
-            .onEnded({ value in
-                if animatedToBack {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        withAnimation(Animation.easeOut(duration: 1)) {
-                            self.showValue = false
-                            self.showLabelValue = false
-                            self.touchLocation = -1
-                        }
-                    }
-                } else {
-                    self.showValue = false
-                    self.showLabelValue = false
-                    self.touchLocation = -1
-                }
-            })
-    )
-         */
-//        .frame(maxWidth: .infinity)
     }
     
     @discardableResult func getClosestDataPoint() -> CGFloat {
@@ -104,27 +75,27 @@ public struct BarChartRow: View {
     }
     
     private func getHeightMultiplier(for item: Double) -> Double {
-        guard let maxValue = self.data.max() else {
+        guard let maxValue = self.data.max(by: {$0.value < $1.value}) else {
             return 0.0
         }
-        let multiplier = item / maxValue
+        let multiplier = item / maxValue.value
         return multiplier
     }
     
     private func normalizedValue(index: Int) -> Double {
-        return Double(self.data[index])/Double(self.maxValue)
+        return Double(self.data[index].value)/Double(self.maxValue)
     }
     
     private func getColorAccent(value: Double) -> Color? {
-        guard let maxValue = self.data.max() else {
+        guard let maxValue = self.data.max(by: {$0.value < $1.value}) else {
             return nil
         }
-        guard let minValue = self.data.min() else {
+        guard let minValue = self.data.min(by: {$0.value < $1.value}) else {
             return nil
         }
-        if value == maxValue {
+        if value == maxValue.value {
             return self.settings.maxBarColor
-        } else if value == minValue {
+        } else if value == minValue.value {
             return self.settings.minBarColor
         } else {
             return self.settings.mediumBarColor
@@ -132,15 +103,15 @@ public struct BarChartRow: View {
     }
     
     private func getBarBlur(value: Double) -> CGFloat? {
-        guard let maxValue = self.data.max() else {
+        guard let maxValue = self.data.max(by: {$0.value > $1.value}) else {
             return nil
         }
-        guard let minValue = self.data.min() else {
+        guard let minValue = self.data.min(by: {$0.value < $1.value}) else {
             return nil
         }
-        if value == maxValue {
+        if value == maxValue.value {
             return self.settings.maxBarBlur
-        } else if value == minValue {
+        } else if value == minValue.value {
             return self.settings.minBarBlur
         } else {
             return self.settings.mediumBarBlur
@@ -154,10 +125,34 @@ public struct BarChartRow: View {
 struct ChartRow_Previews : PreviewProvider {
     static var previews: some View {
         Group {
-            BarChartView(data: [1.0, 2.0, 5.0, 3.0, 7.5, 9.5, 5.0, 10.0, 6.0, 11.0, 2.0, 1.0, 3.0, 1.0, 2.0, 5.0, 3.0, 7.5], settings: BarChartSettings(title: "Активность"))
+            BarChartView(settings: BarChartSettings(title: "Активность"), data: [
+                BarData(value: 7, title: "Jan"),
+                BarData(value: 9, title: "Feb"),
+                BarData(value: 4, title: "Mar"),
+                BarData(value: 5, title: "Apr"),
+                BarData(value: 4, title: "May"),
+                BarData(value: 9, title: "Jun"),
+                BarData(value: 6, title: "Jul"),
+                BarData(value: 8, title: "Aug"),
+                BarData(value: 9, title: "Sep"),
+                BarData(value: 6, title: "Oct"),
+                BarData(value: 10, title: "Nov"),
+                BarData(value: 6, title: "Dec")
+            ])
         }
         .frame(height: 200)
         .padding()
     }
 }
 #endif
+
+
+public struct BarData: Hashable {
+    public let value: Double
+    public let title: String
+    
+    public init(value: Double, title: String) {
+        self.value = value
+        self.title = title
+    }
+}

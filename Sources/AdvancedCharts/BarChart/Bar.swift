@@ -14,10 +14,8 @@ public struct Bar: View {
     @State var scaleValue: Double = 0
     
     // Values
-    var value: Double
-    var mark: String {
-        return String(Int(self.value))
-    }
+    let value: BarData
+//    var value: Double
     
     // Style
     var color: Color?
@@ -28,7 +26,7 @@ public struct Bar: View {
     
     public var body: some View {
         VStack(spacing: 5) {
-            Text(mark)
+            Text("\(Int(value.value))")
                 .font(.caption)
                 .fontWeight(.bold)
 //                .frame(height: 10)
@@ -47,7 +45,7 @@ public struct Bar: View {
                 }
                     
             }
-            .frame(width: width)
+//            .frame(width: width)
             .frame(height: scaleValue)
             .onAppear {
                 withAnimation(.easeOut(duration: 0.5)) {
@@ -61,7 +59,9 @@ public struct Bar: View {
 #if DEBUG
 struct Bar_Previews : PreviewProvider {
     static var previews: some View {
-        Bar(width: 20, height: 200, value: 320, blur: 5, isSelected: false)
+//        Bar(width: 20, height: 200, value: 320, blur: 5, isSelected: false)
+        Bar_New(isSelected: false, value: 7.8, cornerRadius: 5, height: 60, color: .red)
+            .frame(width: 30)
     }
 }
 #endif
@@ -94,3 +94,37 @@ public struct BarChartCell : View {
     }
 }
 */
+
+public struct Bar_New: View {
+    let isSelected: Bool
+    let value: Double
+    let cornerRadius: CGFloat
+    let height: CGFloat
+    let color: Color
+    @State var scaleValue: Double = 0
+    public var body: some View {
+        VStack {
+            // Показатель
+            Text("\(Int(value))")
+                .fontWeight(.bold)
+            // Rectangle
+            ZStack {
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .fill(.red)
+                    .blur(radius: 20)
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .fill(.red)
+                if isSelected {
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .fill(.white.opacity(0.2))
+                }
+            }
+            .frame(height: scaleValue)
+            .onAppear {
+                withAnimation(.easeOut(duration: 0.5)) {
+                    self.scaleValue = self.height
+                }
+            }
+        }
+    }
+}

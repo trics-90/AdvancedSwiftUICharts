@@ -10,14 +10,15 @@ import SwiftUI
 public struct BarChartView: View {
     
     // Chart Style
-    public let data: [Double]
+    public let data: [BarData]
     public var settings: BarChartSettings
     @State var showIndicator: Bool = false
-    @State var currentValue: Double = 0.0
+    @State var currentValue: BarData = BarData(value: 8, title: "Jan")
     
-    public init(data: [Double], settings: BarChartSettings) {
-        self.data = data
+    public init(settings: BarChartSettings, data: [BarData]) {
+//        self.data = data
         self.settings = settings
+        self.data = data
     }
     
         
@@ -26,11 +27,11 @@ public struct BarChartView: View {
             HStack {
                 if showIndicator {
                     HStack {
-                        Text(String(self.currentValue))
+                        Text(String(self.currentValue.value))
                             .font(.title2)
                             .fontWeight(.bold)
                             .foregroundColor(settings.titleColor)
-                        Text("| " + "Январь")
+                        Text("| " + self.currentValue.title)
                             .font(.title2)
                             .foregroundColor(.gray)
                             .foregroundColor(settings.titleColor)
@@ -60,15 +61,28 @@ public struct BarChartView: View {
         .padding()
         .background(settings.backgroundColor)
         .cornerRadius(settings.cornerRadius)
-        .padding()
-        .contentShape(RoundedRectangle(cornerRadius: settings.cornerRadius))
+//        .contentShape(RoundedRectangle(cornerRadius: settings.cornerRadius))
+//        .padding()
     }
 }
 
 struct BarChartView_Previews: PreviewProvider {
     static var previews: some View {
-        BarChartView(data: [2.0, 4.0, 8.0, 3.0, 1.5, 3.4, 8.0, 3.0, 1.5, 3.4, 1.5, 3.4], settings: BarChartSettings(title: "Активность"))
+        BarChartView(settings: BarChartSettings(title: "Активность"), data: [
+            BarData(value: 7, title: "Jan"),
+            BarData(value: 9, title: "Feb"),
+            BarData(value: 4, title: "Mar"),
+            BarData(value: 5, title: "Apr"),
+            BarData(value: 4, title: "May"),
+            BarData(value: 9, title: "Jun"),
+            BarData(value: 6, title: "Jul"),
+            BarData(value: 8, title: "Aug"),
+            BarData(value: 9, title: "Sep"),
+            BarData(value: 6, title: "Oct"),
+            BarData(value: 10, title: "Nov"),
+            BarData(value: 6, title: "Dec")
+        ])
             .frame(height: 200)
-            .shadow(radius: 10)
+            .padding(.horizontal)
     }
 }
