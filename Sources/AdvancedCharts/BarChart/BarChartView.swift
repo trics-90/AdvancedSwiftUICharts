@@ -15,6 +15,13 @@ public struct BarChartView: View {
     @State var showIndicator: Bool = false
     @State var currentValue: Double = 0.0
     
+    public init(data: [Double], settings: BarChartSettings) {
+        self.data = data
+        self.settings = settings
+        self.showIndicator = false
+        self.currentValue = 0.0
+    }
+    
         
     public var body: some View {
         VStack {
