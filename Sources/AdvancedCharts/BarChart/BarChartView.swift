@@ -61,6 +61,7 @@ public struct BarChartView: View {
         .background(settings.backgroundColor)
         .cornerRadius(settings.cornerRadius)
         .padding()
+        .contentShape(RoundedRectangle(cornerRadius: settings.cornerRadius))
     }
 }
 
