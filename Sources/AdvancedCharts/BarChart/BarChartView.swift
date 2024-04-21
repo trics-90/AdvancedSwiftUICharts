@@ -60,8 +60,8 @@ public struct BarChartView: View {
         .padding()
         .background(settings.backgroundColor)
         .cornerRadius(settings.cornerRadius)
-        .padding()
-        .contentShape(RoundedRectangle(cornerRadius: settings.cornerRadius))
+//        .contentShape(RoundedRectangle(cornerRadius: settings.cornerRadius))
+//        .padding()
     }
 }
 
@@ -70,5 +70,6 @@ struct BarChartView_Previews: PreviewProvider {
         BarChartView(data: [2.0, 4.0, 8.0, 3.0, 1.5, 3.4, 8.0, 3.0, 1.5, 3.4, 1.5, 3.4], settings: BarChartSettings(title: "Активность"))
             .frame(height: 200)
             .shadow(radius: 10)
+            .padding(.horizontal)
     }
 }

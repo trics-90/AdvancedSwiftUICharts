@@ -64,7 +64,6 @@ public struct LineChart: View {
         .cornerRadius(settings.chartCornerRadius)
         .frame(height: 200)
         .shadow(radius: 10)
-        .padding()
         
     }
 }
@@ -72,5 +71,6 @@ public struct LineChart: View {
 struct LineChart_Previews: PreviewProvider {
     static var previews: some View {
         LineChart(data: [5, 10, 8, 9, 3, 15, 14, 18, 14, 12, 7, 2, 1], settings: LineChartSettings(title: "Discofox Analytics", gradientColor: LinearGradient(colors: [Color(hexString: "0097F7"), Color(hexString: "D200D4")], startPoint: .bottom, endPoint: .top)))
+            .padding(.horizontal)
     }
 }
