@@ -18,8 +18,6 @@ public struct BarChartView: View {
     public init(data: [Double], settings: BarChartSettings) {
         self.data = data
         self.settings = settings
-        self.showIndicator = false
-        self.currentValue = 0.0
     }
     
         
