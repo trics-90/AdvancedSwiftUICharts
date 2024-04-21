@@ -8,8 +8,8 @@
 import SwiftUI
 
 public struct BarChartRow: View {
-    var data: [Double]
-    let settings: BarChartSettings
+    public var data: [Double]
+    public let settings: BarChartSettings
     let width: CGFloat
     
     var maxValue: Double {
