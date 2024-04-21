@@ -8,41 +8,61 @@
 import SwiftUI
 
 public struct BarChartView: View {
-    // Text options
-    public var title: String = "Discofox Analytics"
-    public var subtitle: String? = "My personal Analytics"
     
     // Chart Style
-    public var radius: CGFloat = 25
+    public let data: [Double]
+    public var settings: BarChartSettings
+    @State var showIndicator: Bool = false
+    @State var currentValue: Double = 0.0
+    
         
     public var body: some View {
-        let data: [Double] = [2.0, 4.0, 8.0, 3.0, 1.5, 3.4, 8.0, 3.0, 1.5, 3.4, 1.5, 3.4]
         VStack {
             HStack {
-                VStack(alignment: .leading) {
-                    Text(title)
-                        .font(.title2)
-                        .fontWeight(.bold)
-                    Text(subtitle ?? "")
-                        .font(.caption)
-                        .fontWeight(.bold)
-                        .foregroundColor(.gray)
+                if showIndicator {
+                    HStack {
+                        Text(String(self.currentValue))
+                            .font(.title2)
+                            .fontWeight(.bold)
+                            .foregroundColor(settings.titleColor)
+                        Text("| " + "Январь")
+                            .font(.title2)
+                            .foregroundColor(.gray)
+                            .foregroundColor(settings.titleColor)
+                    }
+                } else {
+                    VStack(alignment: .leading) {
+                        Text(settings.title)
+                            .font(.title2)
+                            .fontWeight(.bold)
+                            .foregroundColor(settings.titleColor)
+                        if settings.subTitle != nil {
+                            Text(settings.subTitle)
+                                .font(.caption)
+                                .fontWeight(.bold)
+                                .foregroundColor(settings.subTitleColor)
+                        }
+                    }
                 }
                 Spacer()
+                    
             }
-            BarChartRow(data: data)
+            GeometryReader { proxy in
+                let width = proxy.size.width
+                BarChartRow(data: data, settings: settings, width: width, showIndicator: $showIndicator, currentValue: $currentValue)
+            }
         }
         .padding()
-        .background(.white)
-        .cornerRadius(radius)
-        .frame(height: 200)
-        .shadow(radius: 10)
+        .background(settings.backgroundColor)
+        .cornerRadius(settings.cornerRadius)
         .padding()
     }
 }
 
 struct BarChartView_Previews: PreviewProvider {
     static var previews: some View {
-        BarChartView()
+        BarChartView(data: [2.0, 4.0, 8.0, 3.0, 1.5, 3.4, 8.0, 3.0, 1.5, 3.4, 1.5, 3.4], settings: BarChartSettings(title: "Активность"))
+            .frame(height: 200)
+            .shadow(radius: 10)
     }
 }

@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-
-
 public struct Bar: View {
     // Dimensions
     var width: CGFloat
@@ -23,9 +21,10 @@ public struct Bar: View {
     
     // Style
     var color: Color?
-    let defaultColor: Color = .red
     var blur: CGFloat?
     var cornerRadius: CGFloat?
+    
+    let isSelected: Bool
     
     public var body: some View {
         VStack(spacing: 5) {
@@ -41,6 +40,12 @@ public struct Bar: View {
                 }
                 RoundedRectangle(cornerRadius: cornerRadius ?? 3)
                     .fill(color ?? .red)
+                if isSelected {
+                    RoundedRectangle(cornerRadius: cornerRadius ?? 3)
+                        .fill(.white.opacity(0.2))
+                        .cornerRadius(cornerRadius ?? 3)
+                }
+                    
             }
             .frame(width: width)
             .frame(height: scaleValue)
@@ -56,7 +61,7 @@ public struct Bar: View {
 #if DEBUG
 struct Bar_Previews : PreviewProvider {
     static var previews: some View {
-        Bar(width: 20, height: 200, value: 320, blur: 5)
+        Bar(width: 20, height: 200, value: 320, blur: 5, isSelected: false)
     }
 }
 #endif
