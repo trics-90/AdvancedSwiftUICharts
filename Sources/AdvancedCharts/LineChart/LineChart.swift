@@ -62,9 +62,6 @@ public struct LineChart: View {
         .padding()
         .background(settings.backgroundColor)
         .cornerRadius(settings.chartCornerRadius)
-        .frame(height: 200)
-        .shadow(radius: 10)
-        
     }
 }
 
