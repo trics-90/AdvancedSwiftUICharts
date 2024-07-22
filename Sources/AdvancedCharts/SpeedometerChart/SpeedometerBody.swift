@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SpeedometerBody: View {
+    let settings: SpeedChartSettings
     let width: CGFloat
     let height: CGFloat
     let value: Double
@@ -47,16 +48,16 @@ struct SpeedometerBody: View {
     
     var body: some View {
         ZStack {
-            OuterCircle(height: height, width: width)
-            InnerCircle(height: height, width: width)
-            CenterCircle(width: width, height: height)
+            OuterCircle(outerCircleDettings: settings.outerCircleSettings, height: height, width: width)
+            InnerCircle(innerCircleSettings: settings.innerCircleSettings, height: height, width: width)
+            CenterCircle(indicatorSettings: settings.speedIndicatorSettings, width: width, height: height)
             ForEach(targets, id: \.self) { target in
                 Target(value: target)
                     .position(getTargetPosition(target: target))
                     .foregroundStyle(getTargetColor(target: target))
                     .fontWeight(target == self.minTarget || target == self.maxTarget ? .bold : .regular)
             }
-            IndicatorRectangle(width: width, height: height, progress: progress)
+            IndicatorRectangle(indicatorSettings: settings.speedIndicatorSettings, width: width, height: height, progress: progress)
         }
         .frame(width: width, height: height)
     }
@@ -78,25 +79,26 @@ struct SpeedometerBody: View {
     
     private func getTargetColor(target: Double) -> Color {
         if target == minTarget {
-            return .blue
+            return self.settings.targetsSettings.minTargetColor
         } else if target == maxTarget {
-            return .red
+            return self.settings.targetsSettings.maxTargetColor
         } else {
-            return .white
+            return self.settings.targetsSettings.mediumTargetColor
         }
     }
 }
 
 #Preview {
-    SpeedometerBody(width: 380, height: 150, value: 0.43, targets: [0, 0.25, 0.5, 0.75, 1])
+    SpeedometerBody(settings: SpeedChartSettings(speedTitleSettings: SpeedTitleSettings(title: "Speedometr Chart")), width: 380, height: 150, value: 0.43, targets: [0, 0.25, 0.5, 0.75, 1])
 }
 
 fileprivate struct OuterCircle: View {
+    let outerCircleDettings: SpeedOuterCircleSettings
     let height: CGFloat
     let width: CGFloat
     
     var circleDiameter: CGFloat {
-        return height * 2 - strokewidth
+        return height * 2 - outerCircleDettings.lineWidth
     }
     
     
@@ -106,7 +108,7 @@ fileprivate struct OuterCircle: View {
         Group {
             Circle()
                 .trim(from: 0.5, to: 1)
-                .stroke(gradient, lineWidth: strokewidth)
+                .stroke(outerCircleDettings.gradient, lineWidth: outerCircleDettings.lineWidth)
                 .frame(height: circleDiameter)
                 .offset(x: 0, y: height / 2)
         }
@@ -116,11 +118,12 @@ fileprivate struct OuterCircle: View {
 }
 
 fileprivate struct InnerCircle: View {
+    let innerCircleSettings: SpeedInnerCircleSettings
     let height: CGFloat
     let width: CGFloat
     
     var circleDiameter: CGFloat {
-        return height - strokewidth
+        return height - innerCircleSettings.lineWidth
     }
     
     let strokewidth: CGFloat = 3
@@ -129,7 +132,7 @@ fileprivate struct InnerCircle: View {
         Group {
             Circle()
                 .trim(from: 0.5, to: 1)
-                .stroke(gradient, lineWidth: strokewidth)
+                .stroke(innerCircleSettings.gradient, lineWidth: innerCircleSettings.lineWidth)
                 .frame(height: circleDiameter)
                 .offset(x: 0, y: height / 2)
         }
@@ -140,14 +143,15 @@ fileprivate struct InnerCircle: View {
 
 
 fileprivate struct CenterCircle: View {
+    let indicatorSettings: SpeedIndicatorSettings
     let width: CGFloat
     let height: CGFloat
     var body: some View {
         Group {
             Circle()
                 .trim(from: 0.5, to: 1)
-                .fill(.white)
-                .frame(height: 20)
+                .fill(indicatorSettings.circleColor)
+                .frame(height: indicatorSettings.circleRadius * 2)
                 .offset(x: 0, y: height / 2)
         }
         .frame(height: height)
@@ -155,6 +159,7 @@ fileprivate struct CenterCircle: View {
 }
 
 fileprivate struct IndicatorRectangle: View {
+    let indicatorSettings: SpeedIndicatorSettings
     let width: CGFloat
     let height: CGFloat
     let progress: Double
@@ -164,9 +169,9 @@ fileprivate struct IndicatorRectangle: View {
     var body: some View {
         Group {
             RoundedRectangle(cornerRadius: 5)
-                .fill(.white)
-                .shadow(radius: 5)
-                .frame(width: indicatorLenght, height: 5, alignment: .center)
+                .fill(indicatorSettings.stickColor)
+                .shadow(radius: indicatorSettings.stickShadowRadius)
+                .frame(width: indicatorLenght, height: indicatorSettings.stickWidth, alignment: .center)
                 .offset(x: indicatorLenght / 2, y: height / 2 - 2.5)
         }
         .frame(width: width, height: height)

@@ -44,16 +44,15 @@ public struct RatingLineChart: View {
                 let size = proxy.size
                 RatingChartRow(settings: settings, size: size, data: data)
             }
-            .padding(10)
-            .background(settings.chartBackground)
-            .clipShape(RoundedRectangle(cornerRadius: settings.chartCornerRadius))
+//            .background(settings.chartBackground)
+//            .clipShape(RoundedRectangle(cornerRadius: settings.chartCornerRadius))
         }
         .padding()
     }
 }
 
 #Preview {
-    RatingLineChart(settings: RatingChartSettings(title: "Rating Chart", subTitle: nil, gridColor: .white, verticalLegendWidth: 20, horizontalLegendHeight: 30, chartBackground: .black, chartCornerRadius: 20), data: [
+    RatingLineChart(settings: RatingChartSettings(title: "Rating Chart"), data: [
         RatingData(value: 30, description: "Jul 23"),
         RatingData(value: 28, description: "Aug 23"),
         RatingData(value: 23, description: "Sep 23"),

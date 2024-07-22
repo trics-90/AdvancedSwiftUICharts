@@ -10,7 +10,7 @@ import SwiftUI
 public struct BarChartRow: View {
 //    var data: [Double]
     let data: [BarData]
-    let settings: BarChartSettings
+    let barSettings: BarSettings
     let width: CGFloat
     
     var maxValue: Double {
@@ -41,9 +41,9 @@ public struct BarChartRow: View {
         GeometryReader { proxy in
             let width = proxy.frame(in: .local).width
             let height = proxy.size.height
-            let spacing = (width / CGFloat(data.count - 1)) * settings.barWidthMultiplier
-            let barWidth = (width / CGFloat(data.count)) * (1 - settings.barWidthMultiplier)
-            let cornerRadius = barWidth * (settings.cornerRadiusMultiplier / 2)
+            let spacing = (width / CGFloat(data.count - 1)) * barSettings.barWidthMultiplier
+            let barWidth = (width / CGFloat(data.count)) * (1 - barSettings.barWidthMultiplier)
+            let cornerRadius = barWidth * (barSettings.cornerRadiusMultiplier / 2)
             
             HStack(alignment: .bottom, spacing: spacing) {
                 ForEach(Array(data.enumerated()), id: \.offset) { index, element in
@@ -94,11 +94,11 @@ public struct BarChartRow: View {
             return nil
         }
         if value == maxValue.value {
-            return self.settings.maxBarColor
+            return self.barSettings.maxBarColor
         } else if value == minValue.value {
-            return self.settings.minBarColor
+            return self.barSettings.minBarColor
         } else {
-            return self.settings.mediumBarColor
+            return self.barSettings.mediumBarColor
         }
     }
     
@@ -110,11 +110,11 @@ public struct BarChartRow: View {
             return nil
         }
         if value == maxValue.value {
-            return self.settings.maxBarBlur
+            return self.barSettings.maxBarBlur
         } else if value == minValue.value {
-            return self.settings.minBarBlur
+            return self.barSettings.minBarBlur
         } else {
-            return self.settings.mediumBarBlur
+            return self.barSettings.mediumBarBlur
         }
     }
     
@@ -125,7 +125,7 @@ public struct BarChartRow: View {
 struct ChartRow_Previews : PreviewProvider {
     static var previews: some View {
         Group {
-            BarChartView(settings: BarChartSettings(title: "Активность"), data: [
+            BarChartView(settings: BarChartSettings(titleSettings: BarChartTitleSettings(title: "Bar Chart Settings")), data: [
                 BarData(value: 7, title: "Jan"),
                 BarData(value: 9, title: "Feb"),
                 BarData(value: 4, title: "Mar"),

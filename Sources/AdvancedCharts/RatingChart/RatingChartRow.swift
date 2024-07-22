@@ -43,7 +43,7 @@ struct RatingChartRow: View {
 
 #Preview {
     ZStack(alignment: .bottomLeading) {
-        RatingChartRow(settings: RatingChartSettings(title: "Rating Chart", subTitle: nil, gridColor: .white, verticalLegendWidth: 20, horizontalLegendHeight: 30, chartBackground: .black, chartCornerRadius: 20), size: CGSize(width: 370, height: 170), data: [
+        RatingChartRow(settings: RatingChartSettings(title: "Rating Chart"), size: CGSize(width: 370, height: 170), data: [
             RatingData(value: 30, description: "Jul 23"),
             RatingData(value: 28, description: "Aug 23"),
             RatingData(value: 23, description: "Sep 23"),
@@ -100,7 +100,7 @@ fileprivate struct PlacesLegend: View {
                         path.move(to: CGPoint(x: settings.verticalLegendWidth, y: step.y * Double(target)))
                         path.addLine(to: CGPoint(x: width, y: step.y * Double(target)))
                     }
-                    .strokedPath(StrokeStyle(lineWidth: 0.5, lineCap: .round, lineJoin: .bevel, dash: [2], dashPhase: 5))
+                    .strokedPath(StrokeStyle(lineWidth: settings.gridLineWidth, lineCap: .round, lineJoin: .bevel, dash: [2], dashPhase: 5))
                     .fill(settings.gridColor)
 //                }
             }
@@ -109,11 +109,11 @@ fileprivate struct PlacesLegend: View {
                     .font(.system(size: 8))
                     .multilineTextAlignment(.center)
                     .frame(width: 20)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(settings.horizontalLegendColor)
                     .position(x: settings.verticalLegendWidth + step.x * Double(i), y: height - 10)
             }
             getPath()
-                .stroke(lineWidth: 0.5)
+                .stroke(lineWidth: settings.lineWidth)
         }
     }
     

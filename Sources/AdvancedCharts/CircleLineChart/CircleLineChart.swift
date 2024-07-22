@@ -15,6 +15,8 @@ public struct CircleLineChart: View {
         return Int(currentValue * 100 / maxValue)
     }
     let settings: CircleLineChartSettings
+    
+    
     public var body: some View {
         VStack {
             HStack {

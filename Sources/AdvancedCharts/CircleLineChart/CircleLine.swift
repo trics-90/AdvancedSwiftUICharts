@@ -48,7 +48,7 @@ struct CircleLine_Previews: PreviewProvider {
     }
 }
 
-struct CircleLineChartSettings {
+public struct CircleLineChartSettings {
     var lineWidth: CGFloat = 10
     var showBlur: Bool = true
     var blurRadius: CGFloat = 10

@@ -16,7 +16,6 @@ public struct BarChartView: View {
     @State var currentValue: BarData = BarData(value: 8, title: "Jan")
     
     public init(settings: BarChartSettings, data: [BarData]) {
-//        self.data = data
         self.settings = settings
         self.data = data
     }
@@ -24,51 +23,19 @@ public struct BarChartView: View {
         
     public var body: some View {
         VStack {
-            HStack {
-                if showIndicator {
-                    HStack {
-                        Text(String(self.currentValue.value))
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .foregroundColor(settings.titleColor)
-                        Text("| " + self.currentValue.title)
-                            .font(.title2)
-                            .foregroundColor(.gray)
-                            .foregroundColor(settings.titleColor)
-                    }
-                } else {
-                    VStack(alignment: .leading) {
-                        Text(settings.title)
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .foregroundColor(settings.titleColor)
-                        if settings.subTitle != nil {
-                            Text(settings.subTitle)
-                                .font(.caption)
-                                .fontWeight(.bold)
-                                .foregroundColor(settings.subTitleColor)
-                        }
-                    }
-                }
-                Spacer()
-                    
-            }
+            ChartTitle(showIndicator: $showIndicator, currentValue: $currentValue, titleSettings: settings.titleSettings)
             GeometryReader { proxy in
                 let width = proxy.size.width
-                BarChartRow(data: data, settings: settings, width: width, showIndicator: $showIndicator, currentValue: $currentValue)
+                BarChartRow(data: data, barSettings: settings.barSettings, width: width, showIndicator: $showIndicator, currentValue: $currentValue)
             }
         }
         .padding()
-        .background(settings.backgroundColor)
-        .cornerRadius(settings.cornerRadius)
-//        .contentShape(RoundedRectangle(cornerRadius: settings.cornerRadius))
-//        .padding()
     }
 }
 
 struct BarChartView_Previews: PreviewProvider {
     static var previews: some View {
-        BarChartView(settings: BarChartSettings(title: "Активность"), data: [
+        BarChartView(settings: BarChartSettings(titleSettings: BarChartTitleSettings(title: "Bar Chart")), data: [
             BarData(value: 7, title: "Jan"),
             BarData(value: 9, title: "Feb"),
             BarData(value: 4, title: "Mar"),
@@ -83,6 +50,46 @@ struct BarChartView_Previews: PreviewProvider {
             BarData(value: 6, title: "Dec")
         ])
             .frame(height: 200)
+            .background(Color(hue: 1.0, saturation: 0.0, brightness: 0.161))
+            .clipShape(RoundedRectangle(cornerRadius: 30))
             .padding(.horizontal)
     }
 }
+
+fileprivate struct ChartTitle: View {
+    @Binding var showIndicator: Bool
+    @Binding var currentValue: BarData
+    let titleSettings: BarChartTitleSettings
+    var body: some View {
+        HStack {
+            if showIndicator {
+                HStack {
+                    Text(String(self.currentValue.value))
+                        .font(.title2)
+                        .fontWeight(.bold)
+                    Text("| " + self.currentValue.title)
+                        .font(.title2)
+                        .foregroundColor(.gray)
+                }
+                .foregroundColor(titleSettings.titleColor)
+            } else {
+                VStack(alignment: .leading) {
+                    Text(titleSettings.title)
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(titleSettings.titleColor)
+                    if titleSettings.subTitle != nil {
+                        Text(titleSettings.subTitle)
+                            .font(.caption)
+                            .fontWeight(.bold)
+                            .foregroundColor(titleSettings.subTitleColor)
+                    }
+                }
+            }
+            Spacer()
+                
+        }
+    }
+}
+
+
