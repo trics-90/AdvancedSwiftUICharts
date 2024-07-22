@@ -42,9 +42,9 @@ public struct SpeedOuterCircleSettings {
     public let lineWidth: CGFloat
     public let gradient: AngularGradient
     
-    public init(lineWidth: CGFloat = 30, gradienMinColor: Color = .blue, gradientMaxColor: Color = .red) {
+    public init(lineWidth: CGFloat = 30, gradientMinColor: Color = .blue, gradientMaxColor: Color = .red) {
         self.lineWidth = lineWidth
-        self.gradient = AngularGradient(colors: [gradienMinColor, gradientMaxColor, gradientMaxColor], center: .center, startAngle: Angle(degrees: -90), endAngle: Angle(degrees: 90))
+        self.gradient = AngularGradient(colors: [gradientMinColor, gradientMaxColor, gradientMaxColor], center: .center, startAngle: Angle(degrees: -90), endAngle: Angle(degrees: 90))
     }
 }
 
@@ -52,9 +52,9 @@ public struct SpeedInnerCircleSettings {
     public let lineWidth: CGFloat
     public let gradient: AngularGradient
     
-    public init(lineWidth: CGFloat = 3, gradienMinColor: Color = .blue, gradientMaxColor: Color = .red) {
+    public init(lineWidth: CGFloat = 3, gradientMinColor: Color = .blue, gradientMaxColor: Color = .red) {
         self.lineWidth = lineWidth
-        self.gradient = AngularGradient(colors: [gradienMinColor, gradientMaxColor, gradientMaxColor], center: .center, startAngle: Angle(degrees: -90), endAngle: Angle(degrees: 90))
+        self.gradient = AngularGradient(colors: [gradientMinColor, gradientMaxColor, gradientMaxColor], center: .center, startAngle: Angle(degrees: -90), endAngle: Angle(degrees: 90))
     }
 }
 

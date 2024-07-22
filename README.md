@@ -69,3 +69,96 @@ A description of this package.
 Если потребовалось изменить внешний вид индикатора, нужно его присвоить созданному экземпляру `SpeedChartSettings()` в параметр `targetsSettings`
 #### Summary
 Для задания настроек всему графику необходимо создать экземпляр структуры `SpeedChartSettings()` и передать ему созданный ранее `SpeedTitleSettings()` с определенным параметром `title` (обязательно) или, при необходимости, передать остальные параметры, включая созданные экземпляры `SpeedInnerCircleSettings()`, `SpeedInnerCircleSettings()`, `SpeedIndicatorSettings()`, `TargetsSettings()`
+
+# AdvancedCharts
+
+A description of this package.
+## Bar Chart
+### How to use
+
+To use the BarChart, you need to add an instance of `BarChartView()` to your View. When initializing `BarChartView()`, you need to define two parameters: data of type `[BarItem]` and settings of type `BarChartSettings()`. This chart uses a specific type for the data called BarItem. It is described below.
+### Data
+
+For this chart, there is a specific type for the data that you need to convert your data into. This type is BarItem. It has two parameters: `value`: `Double` and `description`: `String`. The value parameter takes the value that determines the height of the bar, while the description parameter provides a description (e.g., a date). The description and value will be displayed instead of the chart title when you click on the chart.
+### Settings
+#### Title & Subtitle Settings
+
+First, define the `title`, `subtitle`, and their colors. Create an instance of the `BarChartTitleSettings()` structure. When initializing it, define the following parameters:
+
+1. `title` – the name of your chart of type `String`
+2. `subTitle` – the subtitle of your chart (optional) of type `String`
+3. `titleColor` – the color of the title (optional) of type `Color`
+4. `subTitleColor` – the color of the subtitle (optional) of type `Color`
+
+#### Bar Settings
+
+To define the appearance of the bars in the chart, you need to create an instance of the `BarSettings()` structure. It is not mandatory to set it. When initializing it, define the following parameters:
+
+1. `barWidthMultiplier` – bar width modifier of type `CGFloat`
+2. `maxBarColor` – color of the bar with the maximum value of type `Color`
+3. `minBarColor` – color of the bar with the minimum value of type `Color`
+4. `mediumBarColor` – color of the other bars that are neither the highest nor the lowest of type `Color`
+5. `maxBarBlur` – background blur value under the maximum bar of type `CGFloat`
+6. `minBarBlur` – background blur value under the minimum bar of type `CGFloat`
+7. `mediumBarBlur` – background blur value under the other bars of type `CGFloat`
+8. `cornerRadiusMultiplier` – bar corner rounding percentage (from 0 to 1) of type `Double`
+
+#### Summary
+
+To set the settings for the entire chart, you need to create an instance of the `BarChartSettings()` structure and pass the previously created `BarChartTitleSettings()` with the defined title parameter (mandatory) or, if necessary, pass other parameters, including the created instance of `BarSettings()`.
+## Speedometer Chart
+### How to use
+
+To use the SpeedometerChart, you need to add an instance of `SpeedometerChart()` to your View. When initializing `SpeedometerChart()`, you need to define three parameters: `data` of type `Double`, `targets` of type `[Double]`, and `settings` of type `SpeedChartSettings()`. The data parameter takes a value from 0 to 1 and is interpreted as a percentage. The targets parameter takes any values and determines the chart's scale.
+### Settings
+#### Title & Subtitle Settings
+
+First, define the `title`, `subtitle`, and their colors. Create an instance of the `SpeedTitleSettings()` structure. When initializing it, define the following parameters:
+
+1. `title` – the name of your chart of type `String`
+2. `subTitle` – the subtitle of your chart (optional) of type `String`
+3. `titleColor` – the color of the title (optional) of type `Color`
+4. `subTitleColor` – the color of the subtitle (optional) of type `Color`
+
+#### Outer Circle Settings
+
+To define the appearance of the outer scale, you can create an instance of `SpeedOuterCircleSettings()` and define 3 parameters:
+
+1. `lineWidth` – the width of the outer circle (border) of type `CGFloat`
+2. `gradientMinColor` – the starting color at the minimum value of type `Color`
+3. `gradientMaxColor` – the ending color at the maximum value of type `Color`
+    If you need to change the appearance of the outer ring, you need to assign it to the created instance of `SpeedChartSettings()` in the `outerCircleSettings` parameter.
+
+#### Inner Circle Settings
+
+To define the appearance of the inner scale, you can create an instance of `SpeedInnerCircleSettings()` and define 3 parameters:
+
+1. `lineWidth` – the width of the inner circle (border) of type `CGFloat`
+2. `gradientMinColor` – the starting color at the minimum value of type `Color`
+3. `gradientMaxColor` – the ending color at the maximum value of type `Color`
+    If you need to change the appearance of the inner ring, you need to assign it to the created instance of `SpeedChartSettings()` in the `innerCircleSettings` parameter.
+
+#### Indicator Settings
+
+To change the appearance of the indicator (pointer) of the chart, you need to create an instance of `SpeedIndicatorSettings()` and define the necessary parameters. There are a total of 6 parameters:
+
+1. `circleRadius` – the radius of the indicator base (circle) of type `CGFloat`
+2. `circleColor` – the color of the indicator base (circle) of type `Color`
+3. `stickWidth` – the width of the pointer of type `CGFloat`
+4. `stickColor` – the color of the pointer of type `Color`
+5. `stickCornerRadius` – the corner radius of the pointer of type `CGFloat`
+6. `stickShadowRadius` – the shadow radius of the pointer of type `CGFloat`
+    If you need to change the appearance of the inner ring, you need to assign it to the created instance of `SpeedChartSettings()` in the `speedIndicatorSettings` parameter.
+
+#### Targets Settings
+
+To change the appearance of the chart indicators, you need to create an instance of `TargetsSettings()` and define the necessary parameters. There are a total of 3 parameters:
+
+1. `minTargetColor` – the color of the minimum value of type `Color`
+2. `maxTargetColor` – the color of the maximum value of type `Color`
+3. `mediumTargetColor` – the color of the medium values of type `Color`
+    If you need to change the appearance of the indicator, you need to assign it to the created instance of `SpeedChartSettings()` in the `targetsSettings` parameter.
+
+#### Summary
+
+To set the settings for the entire chart, you need to create an instance of the `SpeedChartSettings()` structure and pass the previously created `SpeedTitleSettings()` with the defined `title` parameter (mandatory) or, if necessary, pass other parameters, including the created instances of `SpeedInnerCircleSettings()`, `SpeedOuterCircleSettings()`, `SpeedIndicatorSettings()`, `TargetsSettings()`.
