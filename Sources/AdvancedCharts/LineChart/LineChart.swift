@@ -96,7 +96,12 @@ struct LineChart_Previews: PreviewProvider {
 }
 
 public struct LineData: Hashable {
-    let date: String
-    let value: Double
+    public let date: String
+    public let value: Double
+    
+    public init(date: String, value: Double) {
+        self.date = date
+        self.value = value
+    }
 }
 
