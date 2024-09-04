@@ -9,7 +9,7 @@ import SwiftUI
 
 public struct LineChart: View {
     // Values
-    public let data: [Double]
+    public let data: [LineData]
     
     // Dimensions
     public var radius: CGFloat = 25
@@ -20,7 +20,7 @@ public struct LineChart: View {
     @State private var showIndicators: Bool = false
     // Settings
     public var settings: LineChartSettings = LineChartSettings(title: "Discofox Analytics", gradientColor: LinearGradient(colors: [Color(hexString: "0097F7"), Color(hexString: "D200D4")], startPoint: .bottom, endPoint: .top))
-    @State var currentValue: Double = 2 {
+    @State var currentValue: LineData = LineData(date: "", value: 2) {
         didSet{
             if (oldValue != self.currentValue && showIndicatorDot) {
                 HapticFeedback.playSelection()
@@ -29,7 +29,7 @@ public struct LineChart: View {
         }
     }
     
-    public init(data: [Double], settings: LineChartSettings) {
+    public init(data: [LineData], settings: LineChartSettings) {
         self.data = data
         self.settings = settings
     }
@@ -50,9 +50,15 @@ public struct LineChart: View {
                     Spacer()
                 }
             } else {
-                Text(String(currentValue))
-                    .font(.title2)
-                    .fontWeight(.bold)
+                HStack {
+                    Text(currentValue.date)
+                        .font(.title2)
+                        .fontWeight(.bold)
+                    Text("| " + String(currentValue.value))
+                        .font(.title2)
+                        .foregroundStyle(.gray)
+                    Spacer()
+                }
             }
             GeometryReader { proxy in
                 let size = proxy.size
@@ -83,13 +89,14 @@ struct LineChart_Previews: PreviewProvider {
 //        LineData(value: 1, description: "Jan'25"),
 //    ]
     static var previews: some View {
-        LineChart(data: [5, 10, 8, 9, 3, 15, 14, 18, 14, 12, 7, 2, 1], settings: LineChartSettings(title: "Discofox Analytics", gradientColor: LinearGradient(colors: [Color(hexString: "0097F7"), Color(hexString: "D200D4")], startPoint: .bottom, endPoint: .top)))
+        LineChart(data: [LineData(date: "27 jul", value: 0), LineData(date: "28 jul", value: 2), LineData(date: "29 jul", value: 1.5), LineData(date: "30 jul", value: 7), LineData(date: "31 jul", value: 4), LineData(date: "1 aug", value: 0)], settings: LineChartSettings(title: "Discofox Analytics", gradientColor: LinearGradient(colors: [Color(hexString: "0097F7"), Color(hexString: "D200D4")], startPoint: .bottom, endPoint: .top)))
             .padding(.horizontal)
             .frame(height: 200)
     }
 }
 
 public struct LineData: Hashable {
+    let date: String
     let value: Double
-    let description: String
 }
+

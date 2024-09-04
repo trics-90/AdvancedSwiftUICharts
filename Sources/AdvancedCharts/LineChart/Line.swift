@@ -9,17 +9,17 @@ import SwiftUI
 
 struct Line: View {
     // Values
-    var data: [Double]
+    var data: [LineData]
     let size: CGSize
-    var maxPoint: Double {
-        guard let maxPoint = self.data.max() else {
-            return 0
+    var maxPoint: LineData {
+        guard let maxPoint = self.data.max(by: {$0.value < $1.value}) else {
+            return LineData(date: "", value: 0)
         }
         return maxPoint
     }
-    var minPoint: Double {
-        guard let minPoint = self.data.min() else {
-            return 0
+    var minPoint: LineData {
+        guard let minPoint = self.data.min(by: {$0.value < $1.value}) else {
+            return LineData(date: "", value: 0)
         }
         return minPoint
     }
@@ -35,30 +35,30 @@ struct Line: View {
             x = size.width / CGFloat(data.count - 1)
         }
         
-        y = size.height / CGFloat(maxPoint - minPoint)
+        y = size.height / CGFloat(maxPoint.value - minPoint.value)
         return CGPoint(x: x, y: y)
     }
         
     // Visuals
     var path: Path {
         if settings.curvedLines {
-            return Path.quadCurvedPathWithPoints(data: data, step: step, size: size, minPoint: minPoint, isMaxOnTop: settings.isMaxValueOnTop)
+            return Path.quadCurvedPathWithPoints(data: data.map({$0.value}), step: step, size: size, minPoint: minPoint.value, isMaxOnTop: settings.isMaxValueOnTop)
         } else {
-            return Path.linePathWithPoints(data: data, step: step, size: size, minPoint: minPoint, maxPoint: maxPoint, isMaxOnTop: settings.isMaxValueOnTop)
+            return Path.linePathWithPoints(data: data.map({$0.value}), step: step, size: size, minPoint: minPoint.value, maxPoint: maxPoint.value, isMaxOnTop: settings.isMaxValueOnTop)
         }
     }
     var backgroundPath: Path {
         if settings.curvedLines {
-            return Path.quadCurvedPathWithPoints(data: data, step: step, size: size, minPoint: minPoint, showBackground: true, isMaxOnTop: settings.isMaxValueOnTop)
+            return Path.quadCurvedPathWithPoints(data: data.map({$0.value}), step: step, size: size, minPoint: minPoint.value, showBackground: true, isMaxOnTop: settings.isMaxValueOnTop)
         } else {
-            return Path.linePathWithPoints(data: data, step: step, size: size, minPoint: minPoint, maxPoint: maxPoint, showBackground: true, isMaxOnTop: settings.isMaxValueOnTop)
+            return Path.linePathWithPoints(data: data.map({$0.value}), step: step, size: size, minPoint: minPoint.value, maxPoint: maxPoint.value, showBackground: true, isMaxOnTop: settings.isMaxValueOnTop)
         }
     }
     
     // Actions
     @Binding var touchLocation: CGPoint
     @Binding var showIndicatorDot: Bool
-    @Binding var currentValue: Double
+    @Binding var currentValue: LineData
     @Binding var showIndicators: Bool
     
     // Settings
@@ -125,7 +125,7 @@ struct Line: View {
         let index:Int = Int(round((touchLocation.x)/step.x))
         if (index >= 0 && index < data.count){
             self.currentValue = data[index]
-            return CGPoint(x: CGFloat(index)*(step.x), y: CGFloat(data[index]) * step.y)
+            return CGPoint(x: CGFloat(index)*(step.x), y: CGFloat(data[index].value) * step.y)
         }
         return .zero
     }
@@ -133,7 +133,7 @@ struct Line: View {
 
 struct Line_Previews: PreviewProvider {
     static var previews: some View {
-        Line(data: [5, 10, 8, 9, 3, 15, 14, 18, 14, 12, 7, 2, 1], size: CGSize(width: 400, height: 200), touchLocation: .constant(.zero), showIndicatorDot: .constant(true), currentValue: .constant(2), showIndicators: .constant(true), settings: LineChartSettings(title: "Discofox Analytics", gradientColor: LinearGradient(colors: [Color(hexString: "0097F7"), Color(hexString: "D200D4")], startPoint: .bottom, endPoint: .top)))
+        Line(data: [LineData(date: "27 jul", value: 0), LineData(date: "28 jul", value: 2), LineData(date: "29 jul", value: 1.5), LineData(date: "30 jul", value: 7), LineData(date: "31 jul", value: 4), LineData(date: "1 aug", value: 0)], size: CGSize(width: 400, height: 200), touchLocation: .constant(.zero), showIndicatorDot: .constant(true), currentValue: .constant(LineData(date: "", value: 0)), showIndicators: .constant(true), settings: LineChartSettings(title: "Discofox Analytics", gradientColor: LinearGradient(colors: [Color(hexString: "0097F7"), Color(hexString: "D200D4")], startPoint: .bottom, endPoint: .top)))
     }
 }
         

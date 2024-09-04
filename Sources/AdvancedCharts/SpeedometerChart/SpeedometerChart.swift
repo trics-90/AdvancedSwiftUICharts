@@ -38,21 +38,21 @@ fileprivate struct ChartTitle: View {
     let titleSettings: SpeedTitleSettings
     var body: some View {
         HStack {
-                VStack(alignment: .leading) {
-                    Text(titleSettings.title)
-                        .font(.title2)
+            VStack(alignment: .leading) {
+                Text(titleSettings.title)
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .foregroundColor(titleSettings.titleColor)
+                if titleSettings.subTitle != nil {
+                    Text(titleSettings.subTitle)
+                        .font(.caption)
                         .fontWeight(.bold)
-                        .foregroundColor(titleSettings.titleColor)
-                    if titleSettings.subTitle != nil {
-                        Text(titleSettings.subTitle)
-                            .font(.caption)
-                            .fontWeight(.bold)
-                            .foregroundColor(titleSettings.subTitleColor)
-                    }
+                        .foregroundColor(titleSettings.subTitleColor)
                 }
             }
             Spacer()
-                
+        }
+        Spacer()
     }
 }
 
