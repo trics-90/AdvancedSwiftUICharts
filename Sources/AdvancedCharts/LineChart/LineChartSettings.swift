@@ -50,7 +50,7 @@ public struct LineBlurSettings {
     public let blurRadius: CGFloat
     public let lineColor: LinearGradient
     
-    public init(showLineBlur: Bool = true, lineWidth: CGFloat = 2, blurRadius: CGFloat = 5, lineColor: LinearGradient = LinearGradient(colors: [.red, .blue], startPoint: .bottom, endPoint: .top)) {
+    public init(showLineBlur: Bool = true, lineWidth: CGFloat = 2, blurRadius: CGFloat = 5, lineColor: LinearGradient = LinearGradient(colors: [.blue, .red], startPoint: .bottom, endPoint: .top)) {
         self.showLineBlur = showLineBlur
         self.lineWidth = lineWidth
         self.blurRadius = blurRadius
@@ -65,7 +65,7 @@ public struct LineSettings {
     public let isCurved: Bool
     public let isMaxOnTop: Bool
     
-    public init(lineWidth: CGFloat = 4, colors: LinearGradient = LinearGradient(colors: [.red, .blue], startPoint: .bottom, endPoint: .top), shadowRadius: CGFloat = 2, isCurved: Bool = true, isMaxOnTop: Bool = true) {
+    public init(lineWidth: CGFloat = 4, colors: LinearGradient = LinearGradient(colors: [.blue, .red], startPoint: .bottom, endPoint: .top), shadowRadius: CGFloat = 2, isCurved: Bool = true, isMaxOnTop: Bool = true) {
         self.lineWidth = lineWidth
         self.colors = colors
         self.shadowRadius = shadowRadius
@@ -92,7 +92,7 @@ public struct LineChartBackgroundSettings {
     public let showBackground: Bool
     public let colors: LinearGradient
     
-    public init(showBackground: Bool = true, colors: LinearGradient = LinearGradient(colors: [.red.opacity(0.2), .blue.opacity(0.2)], startPoint: .bottom, endPoint: .top)) {
+    public init(showBackground: Bool = true, colors: LinearGradient = LinearGradient(colors: [.blue.opacity(0.2), .red.opacity(0.2)], startPoint: .bottom, endPoint: .top)) {
         self.showBackground = showBackground
         self.colors = colors
     }
