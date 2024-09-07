@@ -95,7 +95,7 @@ struct LineChart_Previews: PreviewProvider {
     }
 }
 
-public struct LineData: Hashable {
+public struct LineData: Hashable, Decodable {
     public let date: String
     public let value: Double
     
