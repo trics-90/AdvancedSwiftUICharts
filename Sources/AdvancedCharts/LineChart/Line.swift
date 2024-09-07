@@ -41,17 +41,17 @@ struct Line: View {
         
     // Visuals
     var path: Path {
-        if settings.curvedLines {
-            return Path.quadCurvedPathWithPoints(data: data.map({$0.value}), step: step, size: size, minPoint: minPoint.value, isMaxOnTop: settings.isMaxValueOnTop)
+        if lineSettings.isCurved {
+            return Path.quadCurvedPathWithPoints(data: data.map({$0.value}), step: step, size: size, minPoint: minPoint.value, isMaxOnTop: lineSettings.isMaxOnTop)
         } else {
-            return Path.linePathWithPoints(data: data.map({$0.value}), step: step, size: size, minPoint: minPoint.value, maxPoint: maxPoint.value, isMaxOnTop: settings.isMaxValueOnTop)
+            return Path.linePathWithPoints(data: data.map({$0.value}), step: step, size: size, minPoint: minPoint.value, maxPoint: maxPoint.value, isMaxOnTop: lineSettings.isMaxOnTop)
         }
     }
     var backgroundPath: Path {
-        if settings.curvedLines {
-            return Path.quadCurvedPathWithPoints(data: data.map({$0.value}), step: step, size: size, minPoint: minPoint.value, showBackground: true, isMaxOnTop: settings.isMaxValueOnTop)
+        if lineSettings.isCurved {
+            return Path.quadCurvedPathWithPoints(data: data.map({$0.value}), step: step, size: size, minPoint: minPoint.value, showBackground: true, isMaxOnTop: lineSettings.isMaxOnTop)
         } else {
-            return Path.linePathWithPoints(data: data.map({$0.value}), step: step, size: size, minPoint: minPoint.value, maxPoint: maxPoint.value, showBackground: true, isMaxOnTop: settings.isMaxValueOnTop)
+            return Path.linePathWithPoints(data: data.map({$0.value}), step: step, size: size, minPoint: minPoint.value, maxPoint: maxPoint.value, showBackground: true, isMaxOnTop: lineSettings.isMaxOnTop)
         }
     }
     
@@ -62,30 +62,33 @@ struct Line: View {
     @Binding var showIndicators: Bool
     
     // Settings
-    var settings: LineChartSettings
+    let blurSettings: LineBlurSettings
+    let lineSettings: LineSettings
+    let backgroundSettings: LineChartBackgroundSettings
+    let indicatorSettings: IndicatorSettings
+    
+    
     var body: some View {
         ZStack {
-            Rectangle()
-                .fill(settings.backgroundColor)
-            if settings.showLineBlur {
+//            Rectangle()
+//                .fill(.red)
+            // Line blur
+            if blurSettings.showLineBlur {
                 self.path
-                    .stroke(settings.gradientColor, style: StrokeStyle(lineWidth: settings.backgroundBlurLineWidth, lineJoin: .round))
-                    .blur(radius: settings.lineBackgroundBlurRadius)
+                    .stroke(blurSettings.lineColor, style: StrokeStyle(lineWidth: blurSettings.lineWidth, lineJoin: .round))
+                    .blur(radius: blurSettings.blurRadius)
             }
-            
-            if settings.showLineBackground {
+            // Background Line
+            if backgroundSettings.showBackground {
                 backgroundPath
-                    .fill(LinearGradient(colors: [Color(hexString: "0097F7").opacity(0.05), Color(hexString: "D200D4").opacity(0.05)], startPoint: .bottom, endPoint: .top))
+                    .fill(backgroundSettings.colors)
             }
-             
-            /*if settings.showHorizontalGrid {
-                ChartGrid(data: data, size: size, step: step, settings: settings)
-            }*/
+            // Line
             self.path
-                .stroke(settings.gradientColor, style: StrokeStyle(lineWidth: settings.lineWidth, lineJoin: .round))
-                .shadow(radius: settings.lineShadowRadius)
+                .stroke(lineSettings.colors, style: StrokeStyle(lineWidth: lineSettings.lineWidth, lineJoin: .round))
+                .shadow(radius: lineSettings.shadowRadius)
             if(showIndicatorDot) {
-                IndicatorPoint(settings: settings)
+                IndicatorPoint(settings: indicatorSettings)
                     .position(self.getClosestPointOnPath(touchLocation: self.touchLocation))
                     
                     
@@ -133,7 +136,7 @@ struct Line: View {
 
 struct Line_Previews: PreviewProvider {
     static var previews: some View {
-        Line(data: [LineData(date: "27 jul", value: 0), LineData(date: "28 jul", value: 2), LineData(date: "29 jul", value: 1.5), LineData(date: "30 jul", value: 7), LineData(date: "31 jul", value: 4), LineData(date: "1 aug", value: 0)], size: CGSize(width: 400, height: 200), touchLocation: .constant(.zero), showIndicatorDot: .constant(true), currentValue: .constant(LineData(date: "", value: 0)), showIndicators: .constant(true), settings: LineChartSettings(title: "Discofox Analytics", gradientColor: LinearGradient(colors: [Color(hexString: "0097F7"), Color(hexString: "D200D4")], startPoint: .bottom, endPoint: .top)))
+        Line(data: [LineData(date: "27 jul", value: 0), LineData(date: "28 jul", value: 2), LineData(date: "29 jul", value: 1.5), LineData(date: "30 jul", value: 7), LineData(date: "31 jul", value: 4), LineData(date: "1 aug", value: 0)], size: CGSize(width: 400, height: 200), touchLocation: .constant(.zero), showIndicatorDot: .constant(true), currentValue: .constant(LineData(date: "", value: 0)), showIndicators: .constant(true), blurSettings: LineBlurSettings(), lineSettings: LineSettings(), backgroundSettings: LineChartBackgroundSettings(), indicatorSettings: IndicatorSettings())
     }
 }
         
