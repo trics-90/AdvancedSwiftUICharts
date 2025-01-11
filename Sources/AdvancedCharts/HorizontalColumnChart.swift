@@ -137,14 +137,14 @@ public struct ColorsSettings {
     public let min: Color
     public let substrate: Color
     public let value: Color
-    public let title: Color!
+    public let title: Color
     public let subtitle: Color
-    public let legendTitle: Color!
-    public let legendSubtitle: Color!
+    public let legendTitle: Color
+    public let legendSubtitle: Color
     
-    public init(max: Color = .red, min: Color! = .blue, substrate: Color = .gray, value: Color, title: Color! = nil, subtitle: Color, legendTitle: Color! = nil, legendSubtitle: Color! = nil) {
+    public init(max: Color = .red, min: Color = .blue, substrate: Color = .gray, value: Color, title: Color = .white, subtitle: Color, legendTitle: Color = .gray, legendSubtitle: Color = .white) {
         self.max = max
-        self.min = min ?? max
+        self.min = min
         self.substrate = substrate
         self.value = value
         self.title = title
