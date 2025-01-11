@@ -18,6 +18,13 @@ public struct HorizontalColumnChart: View {
         return self.data.max(by: { $0.value < $1.value })?.value ?? 0
     }
     
+    public init(data: [Item], title: String, subtitle: String? = nil, settings: StyleSettings) {
+        self.data = data
+        self.title = title
+        self.subtitle = subtitle
+        self.settings = settings
+    }
+    
     
     public var body: some View {
             VStack {
