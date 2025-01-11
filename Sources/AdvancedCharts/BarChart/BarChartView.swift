@@ -87,7 +87,6 @@ fileprivate struct ChartTitle: View {
                 }
             }
             Spacer()
-                
         }
     }
 }
