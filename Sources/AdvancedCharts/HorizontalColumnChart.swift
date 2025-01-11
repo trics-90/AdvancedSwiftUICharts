@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct SwiftUIView: View {
+public struct HorizontalColumnChart: View {
     public let data: [Item]
     public let title: String
     public let subtitle: String?
@@ -38,7 +38,7 @@ public struct SwiftUIView: View {
 }
 
 #Preview {
-    SwiftUIView(data: [Item(title: "Анна", subtitle: "Котонкина", value: 4.0), Item(title: "Елена", subtitle: "Алексеева", value: 3.0), Item(title: "Иван", subtitle: "Петров", value: 5.0), Item(title: "Александр", subtitle: "Смирнов", value: 6.0), Item(title: "Кирилл", subtitle: "Зверев", value: 2.0)], title: "ТОП 5 партнеров", subtitle: "График показывает, сколько раз вы попадались с танцором", settings: StyleSettings(colors: ColorsSettings(max: .red, min: .blue, substrate: .white.opacity(0.1), value: .red, title: .white, subtitle: .gray, legendTitle: .white, legendSubtitle: .white)))
+    HorizontalColumnChart(data: [Item(title: "Анна", subtitle: "Котонкина", value: 4.0), Item(title: "Елена", subtitle: "Алексеева", value: 3.0), Item(title: "Иван", subtitle: "Петров", value: 5.0), Item(title: "Александр", subtitle: "Смирнов", value: 6.0), Item(title: "Кирилл", subtitle: "Зверев", value: 2.0)], title: "ТОП 5 партнеров", subtitle: "График показывает, сколько раз вы попадались с танцором", settings: StyleSettings(colors: ColorsSettings(max: .red, min: .blue, substrate: .white.opacity(0.1), value: .red, title: .white, subtitle: .gray, legendTitle: .white, legendSubtitle: .white)))
         .frame(height: 300)
         .background(Color.white.opacity(0.1))
         .clipShape(RoundedRectangle(cornerRadius: 30))
