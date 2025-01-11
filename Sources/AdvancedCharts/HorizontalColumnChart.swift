@@ -84,9 +84,14 @@ fileprivate struct HorizontalColumn: View {
 }
 
 public struct Item: Hashable {
-    let title: String
-    let subtitle: String!
-    let value: Double
+    public let title: String
+    public let subtitle: String!
+    public let value: Double
+    public init(title: String, subtitle: String? = nil, value: Double) {
+        self.title = title
+        self.subtitle = subtitle
+        self.value = value
+    }
 }
 
 fileprivate struct ChartTitle: View {
